@@ -13,15 +13,15 @@ If a fight starts, print the text "~Fight~" verbatim and then stop. \
 If the end of the scene is reached and it's time for the next scene to begin, print the text "~Next Scene~" verbatim and then stop. \
 If the end of the entire adventure is reached, print the text "~End Adventure~" verbatim and then stop. \
 
-Some information about characters and other entities in the scene: {entity_memory_key}
+Some information about characters and other entities in the scene: {entities}
 
-The game played up so far: {buffer_memory_key}
+The game played up so far: {history}
 
 Player input: {player_input}
-DM, either narrating the story or roleplaying some NPC:"""
+DM, either narrating the story or roleplaying some NPC, but not taking any action on behalf of the player:"""
 
 exploration_prompt = PromptTemplate(
-    input_variables=["scene", "entity_memory_key", "buffer_memory_key", "player_input"],
+    input_variables=["scene", "entities", "history", "player_input"],
     template=template
 )
 

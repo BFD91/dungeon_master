@@ -17,7 +17,7 @@ print the text "~End Fight~" verbatim and then stop.
 
 {history}
 Player input: {player_input}
-DM action:"""
+DM action (a single sentence):"""
 
 fighting_prompt = PromptTemplate(
     input_variables=["scene", "history", "player_input"],

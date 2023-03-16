@@ -9,10 +9,9 @@ introduction_generation_template = """Consider the following DnD adventure:
 
 {adventure}
 
-The following is a highly detailed introduction to the setting where the adventure takes place. The introduction begins \
-with a description of the area in which the adventure takes place, including geography, climate, history, political \
-situation, and culture. The introduction then moves on to give a vague and spoiler-free hint of the adventure to come, for example by \
-mentioning circulating rumors pertaining to the adventure. 
+The following is a highly detailed introduction to the setting where the adventure takes place. The introduction \
+consists of  a description of the area in which the adventure takes place, including geography, climate, history, political \
+situation, and culture. 
 
 """
 
