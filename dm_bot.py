@@ -5,8 +5,8 @@ from dm import DM, roll
 import discord
 
 dm = DM()
-print("Initializing DM")
-dm.initialize_dm()
+#print("Initializing DM")
+#dm.initialize_dm()
 
 
 async def send_message(message, to_send, is_private=False):
@@ -49,7 +49,10 @@ def run_discord_bot():
 
 async def run_game_step(message, user_message, is_private=False, dm=dm):
     player_input = user_message
-    if player_input == "/play":
+    if player_input.starstwith("/play"):
+        dm.character_background = player_input.split("/play ")[1]
+        dm.initialize_dm()
+        await send_message(message, dm.introduction[:2000], is_private=False)
         print("Initializing DM...")
         if len(dm.introduction) > 2000:
             await send_message(message, dm.introduction[:2000], is_private=False)

@@ -9,7 +9,7 @@ from langchain import OpenAI, ConversationChain, LLMChain, PromptTemplate
 from llm_chains.exploration_chatbot import exploration_prompt
 from llm_chains.fight_chatbot import fighting_prompt
 from llm_chains.scene_generator import scene_generation_prompt
-from llm_chains.helpers.llms import sota_llm
+from llm_chains.helpers.llms import gpt_3_5, gpt_4
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory, ConversationSummaryMemory, CombinedMemory, ConversationEntityMemory
 
 LEVEL_RANGE = "1-5"
@@ -33,7 +33,7 @@ class DM:
             k=4,
             input_key="player_input"
         )
-        self.entity_memory = ConversationEntityMemory(llm=sota_llm, input_key="player_input")
+        self.entity_memory = ConversationEntityMemory(llm=gpt_3_5, input_key="player_input")
         self.combined_memory = CombinedMemory(memories=[self.conv_memory, self.entity_memory])
         self.state = {'stage': "initialization", 'scene': None}
 
@@ -86,7 +86,7 @@ class DM:
         return output
 
     def inialize_adventure_chain(self):
-        self.adventure_chain = LLMChain(llm=sota_llm, prompt=adventure_generation_prompt, verbose=VERBOSE)
+        self.adventure_chain = LLMChain(llm=gpt_4, prompt=adventure_generation_prompt, verbose=VERBOSE)
 
     def generate_adventure(self):
         self.adventure = self.adventure_chain.run(level_range=LEVEL_RANGE)
@@ -95,13 +95,13 @@ class DM:
         self.state = {'stage': "exploration", 'scene': next(self.adventure_scenes_iter)}
 
     def initialize_introduction_chain(self):
-        self.introduction_chain = LLMChain(llm=sota_llm, prompt=introduction_generation_prompt, verbose=VERBOSE)
+        self.introduction_chain = LLMChain(llm=gpt_3_5, prompt=introduction_generation_prompt, verbose=VERBOSE)
 
     def generate_introduction(self):
         self.introduction = self.introduction_chain.run(adventure=self.adventure)
 
     def initialize_scene_chain(self):
-        self.scene_chain = LLMChain(llm=sota_llm, prompt=scene_generation_prompt, verbose=VERBOSE)
+        self.scene_chain = LLMChain(llm=gpt_4, prompt=scene_generation_prompt, verbose=VERBOSE)
 
     def generate_detailed_scenes(self):
         self.detailed_scenes = []
@@ -112,12 +112,12 @@ class DM:
     def initialize_fight_chain(self):
         scene = self.state['scene']
         prompt = fighting_prompt.partial(scene=scene)
-        self.fight_chain = LLMChain(llm=sota_llm, prompt=prompt, verbose=VERBOSE, memory=self.conv_memory)
+        self.fight_chain = LLMChain(llm=gpt_3_5, prompt=prompt, verbose=VERBOSE, memory=self.conv_memory)
 
     def initialize_exploration_chain(self):
         scene = self.state['scene']
         prompt = exploration_prompt.partial(scene=scene)
-        self.exploration_chain = LLMChain(llm=sota_llm, prompt=prompt, verbose=VERBOSE, memory=self.combined_memory)
+        self.exploration_chain = LLMChain(llm=gpt_3_5, prompt=prompt, verbose=VERBOSE, memory=self.combined_memory)
 
     def initialize_dm(self):
         self.inialize_adventure_chain()
@@ -128,6 +128,12 @@ class DM:
         self.generate_detailed_scenes()
         self.initialize_fight_chain()
         self.initialize_exploration_chain()
+        print("Adventure: ")
+        print(self.adventure)
+        print('********')
+        print("Scenes: ")
+        print(self.detailed_scenes)
+        print('********')
 
     def run_exploration_step(self, player_input):
         output = self.exploration_chain.run({'player_input': player_input})

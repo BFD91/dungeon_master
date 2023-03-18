@@ -1,10 +1,10 @@
 from langchain import OpenAI, ConversationChain, LLMChain, PromptTemplate
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory, ConversationSummaryMemory, CombinedMemory, ConversationEntityMemory
 
-from llm_chains.helpers.llms import sota_llm
+from llm_chains.helpers.llms import gpt_3_5
 
 
-scene_generation_template = """Below are scenes from a DnD adventure followed by elaborated versions of the same scene. \
+scene_generation_template_old = """Below are scenes from a DnD adventure followed by elaborated versions of the same scene. \
 The elaborations should describe in detail any events that may happen as the players play out the scene, such as:  \
 encounters with characters, fights agains enemies, traps that may be triggered, items that can be found, etc. Keep in \
 mind that it is the decisions of the players that drive events forward, and state which player actions that lead to \
@@ -32,6 +32,14 @@ of the times the victims disappear, but on occasion they return insane. Lord Gre
 experiments on his victims, Eustace explains, and the players are implored to try to stop lord Greed who has been \
 sighted in the nearby Karabas mountain range. If the players accept, Eustace will be very happy and offer to give \
 the adventurers provisions for their travels.\n\n {scene}\n\n Elaboration:"""
+
+scene_generation_template = """Below is a short scene description of a DnD scene that is part of an adventure, followed \
+by an elaborated version of the same scene. The elaboration should describe in full detail any events that may happen as \
+the players play out the scene, such as: encounters with characters, fights agains enemies, traps that may be triggered, \
+items that can be found, etc. Be highly specific. For example, rather than writing that the players must "fight through waves of enemies",\
+list the individual enemies and their relevant attributes. Keep in mind that it is the decisions of the players that drive events forward, and state \
+which player actions that lead to specific events.\n\n Scene summary: {scene}\n\n Detailed elaboration:
+"""
 
 scene_generation_prompt = PromptTemplate(
     input_variables=["scene"],

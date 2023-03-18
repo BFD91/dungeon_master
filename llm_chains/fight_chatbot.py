@@ -1,7 +1,7 @@
 from langchain import OpenAI, ConversationChain, LLMChain, PromptTemplate
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory, ConversationSummaryMemory, CombinedMemory, ConversationEntityMemory
 
-from llm_chains.helpers.llms import sota_llm
+from llm_chains.helpers.llms import gpt_3_5
 
 
 template = """{scene}
