@@ -12,10 +12,10 @@ players may steer the story in a different direction, in which case the DM shall
 opportunities to navigate back to the original story. The DM's response should follow the DnD 5e rules, and ask the player to roll dice \
 for the appropriate ability or skill checks in situations where the player attempts some non-trivial action. (The following \
 are some examples where an ability check is appropriate: If the player attempts to kick in a door ask the player to do an \
- athletics check. If the player attempts to haggle ask the player to do a persuation check. If the player attempts to spot \
+ athletics check. If the player attempts to haggle ask the player to do a persuasion check. If the player attempts to spot \
  magical traps ask the player to do an arcana check. Etc.) The DM should narrate vividly and with immersion.\
 If at the very beginning of the DM and player back-and-forth, we are still at the very beginning of the scene, so respond accordingly! \
-If a fight starts, print the text "~Fight~" verbatim and then stop. \
+If a fight starts, be sure to mention how many the attackers are, after which you print the text "~Fight~" verbatim and then stop. \
 If the end of the scene is reached and it's time for the next scene to begin, print the text "~Next Scene~" verbatim and then stop. \
 If the end of the entire adventure is reached, print the text "~End Adventure~" verbatim and then stop. \
 
